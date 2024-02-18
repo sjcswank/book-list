@@ -1,2 +1,48 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
+{% block content %}
+
+<h1 align="center">Books</h1>
+<form method="POST">
+    <input name="book" id="book" class="form-control" />
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="isRead" name="isRead">
+      <label class="form-check-label" for="isRead">
+        Read
+      </label>
+    </div>
+    <br>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Book</button>
+    </div>
+    <br>
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Read?</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in user.books %}
+  <tr>
+      <th scope="row">{{ book.name }}</th>
+      {% if book.read %}
+      <td align="center"><div class="form-check">
+          <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
+        </div></td>
+      {% else %}
+      <td align="center"><input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})"></td>
+      {% endif %}
+      <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
