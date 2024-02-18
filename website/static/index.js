@@ -7,11 +7,12 @@ function deleteBook(bookId) {
             });
           }
 
-function update_read(bookId) {
+function update_read(bookId, filter) {
+            console.log(bookId)
           fetch("/update-read", {
             method: "POST",
             body: JSON.stringify({ bookId: bookId }),
           }).then((_res) => {
-            window.location.href = "/";
+            window.location.href = "/?filter=" + filter;
             });
           }

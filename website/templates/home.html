@@ -44,10 +44,10 @@
           <th scope="row">{{ book.name }}</th>
           {% if book.read %}
           <td align="center"><div class="form-check">
-              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }}, '{{ filter }}')">
             </div></td>
           {% else %}
-          <td align="center"><input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})"></td>
+          <td align="center"><input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }}, '{{ filter }}')"></td>
           {% endif %}
           <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
           </td>
@@ -58,7 +58,7 @@
         <tr>
           <th scope="row">{{ book.name }}</th>
           <td align="center"><div class="form-check">
-              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }}, '{{ filter }}')">
           </div></td>
         <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
           </td>
@@ -69,7 +69,7 @@
         <tr>
           <th scope="row">{{ book.name }}</th>
           <td align="center"><div class="form-check">
-              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }}, '{{ filter }}')">
           </div></td>
         <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
           </td>
