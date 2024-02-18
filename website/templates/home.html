@@ -3,6 +3,16 @@
 {% block content %}
 
 <h1 align="center">Books</h1>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Filter
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/">All</a>
+    <a class="dropdown-item" href="/?filter=read">Read</a>
+    <a class="dropdown-item" href="/?filter=unread">Unread</a>
+  </div>
+</div>
 <form method="POST">
     <input name="book" id="book" class="form-control" />
     <div class="form-check">
@@ -27,20 +37,46 @@
     </tr>
   </thead>
   <tbody>
-  {% for book in user.books %}
-  <tr>
-      <th scope="row">{{ book.name }}</th>
-      {% if book.read %}
-      <td align="center"><div class="form-check">
-          <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
-        </div></td>
-      {% else %}
-      <td align="center"><input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})"></td>
-      {% endif %}
-      <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
-      </td>
-    </tr>
-  {% endfor %}
+
+      {% for book in user.books %}
+        {% if filter == '*' %}
+      <tr>
+          <th scope="row">{{ book.name }}</th>
+          {% if book.read %}
+          <td align="center"><div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
+            </div></td>
+          {% else %}
+          <td align="center"><input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})"></td>
+          {% endif %}
+          <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
+          </td>
+        </tr>
+
+    {% elif filter == 'read' %}
+      {% if book.read == True %}
+        <tr>
+          <th scope="row">{{ book.name }}</th>
+          <td align="center"><div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" checked onchange="update_read({{ book.id }})">
+          </div></td>
+        <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
+          </td>
+        </tr>
+         {% endif %}
+      {% elif filter == 'unread' %}
+        {% if book.read == False %}
+        <tr>
+          <th scope="row">{{ book.name }}</th>
+          <td align="center"><div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bookIsRead" name="bookIsRead" onchange="update_read({{ book.id }})">
+          </div></td>
+        <td><button type="button" class="close" onClick="deleteBook({{ book.id }})">&times;</button>
+          </td>
+        </tr>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
   </tbody>
 </table>
 

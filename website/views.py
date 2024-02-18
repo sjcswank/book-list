@@ -27,7 +27,11 @@ def home():
             db.session.commit()
             flash('Book added!', category='success')
 
-    return render_template("home.html", user=current_user)
+
+    filter = request.args.get('filter', default='*', type=str)
+
+    return render_template("home.html", filter=filter, user=current_user)
+
 
 @views.route('/delete-book', methods=['POST'])
 def delete_book():
